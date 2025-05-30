@@ -1,18 +1,21 @@
 from fastapi import APIRouter
-from pydantic import BaseModel
 from datetime import datetime
+from pydantic import BaseModel
+
+router = APIRouter()
 
 class ReadingIn(BaseModel):
   sensor_id : str
   value : float
   timestamp : datetime
 
-router = APIRouter()
-
-
 @router.get("/")
 def root():
-  return {"message": "Readings running"}
+  return {"msg": "API is running"}
+
+@router.get("/sensors")
+def get_sensors():
+  return {"msg": "Sensors are running"}
 
 @router.post("/readings")
 def create_reading(reading: ReadingIn):
